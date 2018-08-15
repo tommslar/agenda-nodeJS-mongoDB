@@ -18,7 +18,8 @@ app.use('/users', routing);
 app.use(express.static('../client'));
 
 //conectandome a la BD
-mongoose.connect("mongodb://localhost/agendaBD");
+var url = "mongodb://localhost:27017/agenda";
+mongoose.connect(url,{ useNewUrlParser: true });
 console.log('conectado a la base de datos')
 
 //ejecutamos listen en el server y comprobamos que funciona:
