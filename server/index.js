@@ -16,7 +16,8 @@ var Server 		  = http.createServer(app);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/users', Routing); //acá establezco el path base
-app.use(express.static('../client'));
+app.use(express.static('client'));
+
 
 //conectandome a la BD
 var url = "mongodb://localhost:27017/agenda";

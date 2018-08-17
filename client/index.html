@@ -23,12 +23,10 @@
         $('.loginButton').on('click', function(event) {
             var nom = $('#user').val();
             var pas = $('#pass').val();
-            //console.log(nom+"  "+pas);
             if (nom != "" && pas != "") {
                 $.post('/users/login',{user:nom, pass:pas}, function(response) {
-                    console.log(response);
                     if (response == "Validado") {
-                        window.location.href = "http://localhost:8082/main.html";
+                        window.location.href = "http://localhost:3000/main.html";
                     }else{
                         alert("No existe el usuario");
                     }
