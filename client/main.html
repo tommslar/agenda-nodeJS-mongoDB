@@ -88,6 +88,21 @@ class EventManager {
         })
     }
 
+    actualizarEvento(event){
+      if (event.end == null) {
+          console.log('Evento del día, nueva fecha: '+event.start.format());
+          $.post('/users/actulizar_evento'+event.eventId, {id: event.eventId, start_d: event.start.format(), end_d: event.start.format()}, (response) => {
+          console.log(response)
+      })
+      } else {
+          console.log(event.start.format()+' '+event.end.format());
+          $.post('/users/actulizar_evento'+event.eventId, {id: event.eventId, start_d: event.start.format(), end_d: event.end.format()}, (response) => {
+          console.log(response)
+      })  
+      }
+      
+    }
+
     guardarEvento() {
         $('.addButton').on('click', (ev) => {
             ev.preventDefault()
@@ -96,15 +111,17 @@ class EventManager {
             end_e = $('#end_date').val(),
             title_e = $('#titulo').val(),
             id_e = Math.floor(Math.random() * 1000)
-            $.post('/users/agregar_evento',{eventId: id_e,
-                                            titulo:title_e,
-                                            start:start_e,
-                                            end:end_e},
-            function(response) {
-              alert(response);
-              window.location.reload(true);
-            })
-            
+            if (title_e == '' || start_e == ''){
+              alert ("debes completar el título y la fecha de inicio para poder guardar")
+            }
+            else {
+              $.post('/users/agregar_evento',{eventId: id_e,titulo:title_e, start:start_e, end:end_e},
+              function(response) {
+                alert(response);
+                window.location.reload(true);
+              }
+            )
+            }
         })
     }
 
@@ -118,7 +135,7 @@ class EventManager {
             interval: 30,
             minTime: '5',
             maxTime: '23:59:59',
-            defaultTime: '',
+            defaultTime: '11',
             startTime: '5:00',
             dynamic: false,
             dropdown: true,
@@ -173,6 +190,6 @@ class EventManager {
     }
 
     const Manager = new EventManager()
-    //Manager.constructor()
+
   });
 </script>

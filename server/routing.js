@@ -16,7 +16,7 @@ Router.get('/all', function (err, res) { // funciona
 	})
 });
 
-Router.get('/cargar_eventos',function(req,res){ // funciona --- filtrar eventos x user
+Router.get('/cargar_eventos',function(req,res){ // funciona --- se deberia filtrar eventos x user
 	console.log("Leyendo tabla de eventos......");
 	Evento.find({})
   	.then((data)=>{
@@ -43,9 +43,9 @@ Router.post('/login',function(req,res){ // funciona
     });
 });
 
-Router.post('/agregar_evento',function(req,res){ // funciona, agergar el userID
+Router.post('/agregar_evento',function(req,res){ // funciona, habria que agregar el userID
 	console.log('creando evento');
-	console.log(req);
+	//console.log(req);
 	let evento=new Evento({
 		eventId: req.body.eventId,
 		title:req.body.titulo,
@@ -61,30 +61,29 @@ Router.post('/agregar_evento',function(req,res){ // funciona, agergar el userID
 	})
 })
 
-Router.post('/eliminar_evento:id',function(req,res){ // a prueba
+Router.post('/eliminar_evento:id',function(req,res){ // funciona
 	var ide = req.params.id; // tambien funciona si me traigo el req.body.id
     Evento.remove({eventId: ide}, function(error) {
         if(error) {
             res.status(500)
             res.json(error)
         }
-        res.send("Registro eliminado")
+        res.send("evento eliminado")
     })
 })
 
-Router.put('/actulizar_evento:id',function(req,res){ // todavia no probado
-	var evento = new Evento({
-		eventId: req.body.eventId,
-		title:req.body.titulo,
-		start:req.body.start,
-		end:req.body.end
-	})
-	evento.update(function(error){
-		if(error){
-			res.status(500)
-			res.json(error)
-		}
-		res.send("Registro Guardado")
+Router.post('/actulizar_evento:id',function(req,res){ // funciona
+	console.log (req.params.id+' '+req.body.start_d+' '+req.body.end_d)
+	Evento.update({eventId:req.params.id},{$set:{start:req.body.start_d, end:req.body.end_d}},{multi:true})
+    .then((docs)=>{
+      if(docs) {
+        res.send("se actualizo el evento....")
+        console.log(docs)
+      } else {
+        console.log("no existe el evento")
+      }
+	 }).catch((err)=>{
+	     console.log("hubo un error")
 	})
 })
 

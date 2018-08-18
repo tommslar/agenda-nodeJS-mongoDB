@@ -3,9 +3,9 @@ var User= require('./model_user.js');
 //función para crear al primer usuario de la base
 module.exports.primerUsuario = function (){
   	var primerUser = new User ({
-	idUser: 10,
-	nombre: 'jos',
-	email: 'pruebados@gmail.com',
+	idUser: Math.floor(Math.random() * 1000),
+	nombre: 'admin',
+	email: 'prueba@gmail.com',
 	contrasenna: '12345',
 	estado: 'Activo'
 	});
