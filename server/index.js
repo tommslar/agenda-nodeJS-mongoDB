@@ -5,7 +5,7 @@ var http 		  = require('http');
 var path 		  = require('path');
 var Routing       = require ('./routing.js');
 var mongoose	  = require('mongoose');
-var operaciones   = require('./primerUser.js');
+//var operaciones   = require('./primerUser.js');
 
 //construyendo el server
 var port 		  = process.env.PORT || 3000;

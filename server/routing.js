@@ -61,6 +61,20 @@ Router.post('/agregar_evento',function(req,res){ // funciona, habria que agregar
 	})
 })
 
+Router.get('/carga_inicial',function(req,res){ // función para cargar primer user
+	console.log('creando user');
+	//console.log(req);
+	var primerUser = new User ({
+	idUser: Math.floor(Math.random() * 1000),
+	nombre: 'pepe',
+	email: 'pepe@gmail.com',
+	contrasenna: '12345',
+	estado: 'Activo'
+	});
+  	primerUser.save();
+  	console.log("usuario uno agregado");
+})
+
 Router.post('/eliminar_evento:id',function(req,res){ // funciona
 	var ide = req.params.id; // tambien funciona si me traigo el req.body.id
     Evento.remove({eventId: ide}, function(error) {
